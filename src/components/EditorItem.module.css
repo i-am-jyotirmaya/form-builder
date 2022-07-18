@@ -1,0 +1,9 @@
+form.editorForm {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem
+}
+
+form.editorForm > * {
+    margin: .5rem 0;
+}
