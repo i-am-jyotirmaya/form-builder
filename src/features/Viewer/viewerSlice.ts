@@ -39,7 +39,6 @@ export const viewerSlice = createSlice({
       })
       .addCase(getFieldsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log(action.payload);
         const fieldsFromServer = [];
         for (const key in action.payload) {
           const f: FormField = {
@@ -51,7 +50,6 @@ export const viewerSlice = createSlice({
           };
           fieldsFromServer.push(f);
         }
-        console.log(fieldsFromServer);
         state.fields = fieldsFromServer;
       })
       .addCase(getFieldsAsync.rejected, (state) => {

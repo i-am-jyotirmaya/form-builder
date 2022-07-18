@@ -63,7 +63,6 @@ export const addFieldAsync = createAsyncThunk(
       type,
       value,
     };
-    console.log("new field", newField);
     return newField;
   }
 );
@@ -100,7 +99,6 @@ export const editorSlice = createSlice({
       })
       .addCase(getFieldsAsync.fulfilled, (state, action) => {
         state.status = "idle";
-        console.log(action.payload);
         const fieldsFromServer = [];
         for (const key in action.payload) {
           const f: FormField = {
@@ -112,7 +110,6 @@ export const editorSlice = createSlice({
           };
           fieldsFromServer.push(f);
         }
-        console.log(fieldsFromServer);
         state.fields = fieldsFromServer;
       })
       .addCase(getFieldsAsync.rejected, (state) => {

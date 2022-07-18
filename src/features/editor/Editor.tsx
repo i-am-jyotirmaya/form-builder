@@ -7,7 +7,6 @@ import EditorItem from "../../components/EditorItem";
 import { FormField, getFieldsAsync, reset, selectFields, selectFieldsLoading } from "./editorSlice";
 
 const Editor = () => {
-  console.log("Editor Loaded");
   const dispatch = useAppDispatch();
   const params = useParams();
   const formId = params.formId as string;
@@ -19,7 +18,6 @@ const Editor = () => {
 
   const fields: FormField[] = useAppSelector(selectFields) ?? [];
   const loading = useAppSelector(selectFieldsLoading);
-  console.log("fields", fields);
   return (
     <Sheet
       sx={{

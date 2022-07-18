@@ -20,7 +20,6 @@ const BuildFormInput = () => {
     });
 
     const formId = newFormRef.key;
-    console.log("formId", formId);
     navigate(`/forms/${formId}`);
   };
   return (
