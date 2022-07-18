@@ -6,7 +6,7 @@ import { Field, FieldInputProps, FieldMetaProps, Form, Formik } from "formik";
 import { useState } from "react";
 
 import { useAppDispatch } from "../app/hooks";
-import { addFieldAsync, saveFieldAsync } from "../features/editor/editorSlice";
+import { addFieldAsync, deleteFieldAsync, saveFieldAsync } from "../features/editor/editorSlice";
 import styles from "./EditorItem.module.css";
 import SelectField from "./SelectField";
 
@@ -128,7 +128,13 @@ const EditorItem: React.FC<IProps> = ({ index, fieldId, formId, data, isNew = fa
             </IconButton>
           )}
           {!isNew && (
-            <IconButton title="Delete field" variant="soft" onClick={(e) => {}}>
+            <IconButton
+              title="Delete field"
+              variant="soft"
+              onClick={(e) => {
+                dispatch(deleteFieldAsync({ formId, fieldId: fieldId as string }));
+              }}
+            >
               <Delete />
             </IconButton>
           )}

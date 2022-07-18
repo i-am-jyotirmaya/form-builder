@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { get, getDatabase, push, ref, update } from "firebase/database";
+import { get, getDatabase, push, ref, remove, update } from "firebase/database";
 
 import { RootState } from "../../app/store";
 
@@ -68,6 +68,16 @@ export const addFieldAsync = createAsyncThunk(
   }
 );
 
+export const deleteFieldAsync = createAsyncThunk(
+  "editor/delete",
+  async ({ formId, fieldId }: { formId: string; fieldId: string }) => {
+    const db = getDatabase();
+    const fieldRef = ref(db, `forms/${formId}/fields/${fieldId}`);
+    await remove(fieldRef);
+    return fieldId;
+  }
+);
+
 export const getFieldsAsync = createAsyncThunk("editor/all", async (formId: string) => {
   const db = getDatabase();
   const formRef = ref(db, `forms/${formId}/fields/`);
@@ -133,6 +143,11 @@ export const editorSlice = createSlice({
       .addCase(saveFieldAsync.rejected, (state) => {
         state.status = "failed";
       });
+
+    builder.addCase(deleteFieldAsync.fulfilled, (state, action) => {
+      let fieldIndex = state.fields.findIndex((x) => x.id === action.payload);
+      state.fields.splice(fieldIndex, 1);
+    });
   },
 });
 
